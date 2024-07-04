@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frp/services/local_notificatuon_service.dart';
+import 'package:frp/views/screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await LocalNotificatuonService.requistPermission();
+  LocalNotificatuonService.requistPermission();
+  await LocalNotificatuonService.init();
   runApp(const MainApp());
 }
 
@@ -14,22 +16,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              Text(LocalNotificatuonService.notificationEnabled
-                  ? "Xabarnoma yoniq"
-                  : "xabarnoma ruxsat berilmagan"),
-              FilledButton(
-                  onPressed: () {
-                    LocalNotificatuonService.showNotification();
-                  },
-                  child: Text("Darxol"))
-            ],
-          ),
-        ),
-      ),
+      home: MainScreen(),
     );
   }
 }
